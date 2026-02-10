@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Для Инкары ❤️</title>
+    <title>Для Инкары 🩷</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
         body {
             display: flex;
@@ -12,88 +14,83 @@
             justify-content: center;
             height: 100vh;
             margin: 0;
-            background-color: #ffe6e6;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Montserrat', sans-serif;
             overflow: hidden;
             text-align: center;
-            transition: background-color 0.5s;
+            /* ФОНОВОЕ ФОТО: замени 'your-photo.jpg' на название своего файла на GitHub */
+            background: linear-gradient(rgba(255, 230, 230, 0.7), rgba(255, 230, 230, 0.7)), 
+                        url('your-photo.jpg') no-repeat center center/cover;
+            transition: background 0.5s;
+        }
+
+        .container {
+            background-color: rgba(255, 255, 255, 0.85); /* Полупрозрачный белый фон */
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(255, 117, 140, 0.3);
+            z-index: 10;
+            max-width: 90%;
         }
 
         h1 {
-            color: #ff4d6d;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            z-index: 10;
+            font-family: 'Pacifico', cursive;
+            color: #ff758c; /* Красивый розовый цвет */
+            font-size: 2.8rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.05);
         }
 
         .buttons {
             display: flex;
             gap: 20px;
-            align-items: center; /* Чтобы кнопки центрировались при разном размере */
+            justify-content: center;
+            align-items: center;
+            min-height: 150px; /* Место для роста кнопки ДА */
         }
 
         button {
-            padding: 15px 30px;
+            padding: 15px 35px;
             font-size: 1.2rem;
             border: none;
             border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
+            font-family: 'Montserrat', sans-serif;
         }
 
         #yesBtn {
-            background-color: #ff4d6d;
+            background-color: #ff758c;
             color: white;
-            box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
-            /* Важно: плавное изменение размера */
-            transition: transform 0.3s ease, background-color 0.3s;
-            z-index: 10;
-            /* Начальный масштаб */
+            box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             transform: scale(1);
-        }
-        
-        #yesBtn:hover {
-             background-color: #ff3355;
         }
 
         #noBtn {
             background-color: #fff;
-            color: #ff4d6d;
-            border: 2px solid #ff4d6d;
-            transition: top 0.4s ease, left 0.4s ease;
+            color: #ff758c;
+            border: 2px solid #ff758c;
+            transition: all 0.4s ease;
             position: relative;
-            z-index: 10;
-        }
-
-        .container {
-            position: relative;
-            z-index: 10;
-            padding: 20px;
         }
 
         #message {
             display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-            font-size: 2rem;
-            color: #ff4d6d;
-            font-weight: bold;
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5rem;
+            color: #ff758c;
             z-index: 20;
             animation: popIn 0.5s ease;
         }
 
         @keyframes popIn {
-            0% { transform: translate(-50%, -50%) scale(0); }
-            80% { transform: translate(-50%, -50%) scale(1.1); }
-            100% { transform: translate(-50%, -50%) scale(1); }
+            0% { transform: scale(0); }
+            100% { transform: scale(1); }
         }
 
         .heart {
             position: absolute;
-            color: #ff4d6d;
+            color: #ff758c;
             animation: float 4s linear forwards;
             pointer-events: none;
             z-index: 1;
@@ -106,10 +103,8 @@
 </head>
 <body>
 
-    <audio id="noSound" src="https://www.myinstants.com/media/sounds/vine-boom.mp3"></audio>
-    
+    <audio id="noSound" src="no.mp3"></audio>
     <audio id="yesMusic" loop src="late_night_drive_home_-_Stress_Relief_(mp3.pm).mp3"></audio>
-
 
     <div class="container" id="mainCard">
         <h1>Ты будешь моей валентинкой? </h1>
@@ -119,44 +114,37 @@
         </div>
     </div>
 
-    <div id="message">
-        Люблю тебя! ❤️😘
-    </div>
+    <div id="message">Люблю тебя жаным 🩷💋</div>
 
     <script>
         const noBtn = document.getElementById('noBtn');
         const yesBtn = document.getElementById('yesBtn');
         const mainCard = document.getElementById('mainCard');
         const message = document.getElementById('message');
-        
-        // Получаем элементы аудио
         const noSound = document.getElementById('noSound');
         const yesMusic = document.getElementById('yesMusic');
 
-        // Переменная для текущего размера кнопки "Да"
-        let currentYesScale = 1;
+        let currentScale = 1;
 
         function moveButton() {
-            // 1. Увеличиваем кнопку "Да"
-            currentYesScale += 0.35; // Увеличиваем на 15% каждый раз
-            yesBtn.style.transform = `scale(${currentYesScale})`;
+            // 1. Увеличение кнопки ДА
+            currentScale += 0.5; 
+            yesBtn.style.transform = `scale(${currentScale})`;
 
-            // 2. Воспроизводим звук "Нет"
-            // Сбрасываем время на 0, чтобы звук играл с начала при быстрых наведениях
-            noSound.currentTime = 0; 
-            // Важно: браузеры иногда блокируют автовоспроизведение, но после первого клика по странице должно работать
-            noSound.play().catch(error => console.log("Автовоспроизведение звука заблокировано браузером до взаимодействия"));
+            // 2. Звук "Нет"
+            noSound.currentTime = 0;
+            noSound.play().catch(() => {});
 
+            // 3. Умное перемещение кнопки НЕТ
+            // Ограничиваем область, чтобы кнопка не уходила за края
+            const padding = 50;
+            const maxWidth = window.innerWidth - noBtn.offsetWidth - padding;
+            const maxHeight = window.innerHeight - noBtn.offsetHeight - padding;
 
-            // 3. Логика перемещения (как раньше)
-            const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
-            const btnWidth = noBtn.offsetWidth;
-            const btnHeight = noBtn.offsetHeight;
-            const padding = 20; 
-            const randomX = Math.random() * (windowWidth - btnWidth - padding * 2) + padding;
-            const randomY = Math.random() * (windowHeight - btnHeight - padding * 2) + padding;
-            noBtn.style.position = 'absolute';
+            const randomX = Math.max(padding, Math.floor(Math.random() * maxWidth));
+            const randomY = Math.max(padding, Math.floor(Math.random() * maxHeight));
+
+            noBtn.style.position = 'fixed'; // Фиксируем относительно экрана
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
         }
@@ -168,14 +156,10 @@
         });
 
         yesBtn.addEventListener('click', () => {
-            mainCard.style.opacity = '0'; 
-            setTimeout(() => { mainCard.style.display = 'none'; }, 500);
+            mainCard.style.display = 'none';
             message.style.display = 'block';
-            setInterval(createHeart, 100);
-            document.body.style.backgroundColor = '#fff0f3';
-
-            // Включаем музыку победы!
             yesMusic.play();
+            setInterval(createHeart, 150);
         });
 
         function createHeart() {
@@ -184,17 +168,10 @@
             heart.innerHTML = '🩷';
             heart.style.left = Math.random() * 100 + 'vw';
             heart.style.top = '100vh';
-            const size = Math.random() * 20 + 10; 
-            heart.style.fontSize = size + 'px';
-            heart.style.animationDuration = Math.random() * 2 + 3 + 's';
+            heart.style.fontSize = (Math.random() * 20 + 20) + 'px';
             document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 5000);
+            setTimeout(() => heart.remove(), 4000);
         }
     </script>
 </body>
 </html>
-
-
-
-
-
